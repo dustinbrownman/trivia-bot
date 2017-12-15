@@ -1,4 +1,29 @@
-h1 {
-  font-family: Helvetica;
-  font-weight: 200;
+html, body {
+  height: 100%;
+}
+
+.app-container {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  position: relative;
+  box-sizing: border-box;
+  margin: 10px auto;
+  width: 50%;
+}
+
+.chat-container {
+  color: #3e474f;
+  height: calc(100vh - 200px);
+  padding: 20px;
+  border-bottom: none;
+  overflow: hidden;
+  overflow-y: scroll;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+
+  h1 {
+    font-family: Helvetica;
+    font-weight: 200;
+  }
 }

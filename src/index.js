@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import App from './components/App';
+import App from './components/app';
 
 
-render(<App name='World' />, document.getElementById('root'));
+render(<App greeting="Hi, I'm TriviaBot." />, document.getElementById('root'));

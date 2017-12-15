@@ -1,0 +1,38 @@
+.message {
+  width: 100%;
+  margin: 0;
+  text-align: right;
+
+  &-sent {
+    text-align: right;
+
+    .message-bubble {
+      color: #fff;
+      background-color: #85b816;
+      border: 2px solid #85b816;
+      border-radius: 10px 10px 0 10px;
+    }
+  }
+
+  &-received {
+    text-align: left;
+
+    .message-bubble {
+      background-color: darken(#f7f6f5, 5%);
+      border: 2px solid darken(#f7f6f5, 5%);
+      border-radius: 10px 10px 10px 0;
+    }
+  }
+
+  &-bubble {
+    max-width: 65%;
+    display: inline-block;
+    margin: 5px 0;
+    padding: 5px 10px;
+    text-align: left;
+    line-height: 1.5em;
+    font-size: 120%;
+    letter-spacing: .1em;
+    overflow-wrap: break-word;
+  }
+}

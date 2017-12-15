@@ -1,0 +1,27 @@
+.text-input {
+  width: 100%;
+  margin-bottom: 20px;
+
+  span[contenteditable="true"] {
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    font-size: 175%;
+    line-height: 1.5em;
+    min-height: 1.5em;
+    width: 100%;
+    padding: 5px 10px;
+    color: #3f4850;
+    background-color: #edeff0;
+    border-bottom: 2px solid #c6ccd2;
+    transition: border-bottom 0.25s ease;
+
+    &:after {
+      content: " ";
+    }
+    &:focus {
+      outline-width: 0;
+      border-bottom: 4px solid #0063d1;
+    }
+  }
+}
