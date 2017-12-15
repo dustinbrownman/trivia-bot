@@ -12,11 +12,13 @@ class App extends React.Component {
   constructor (props) {
     super(props);
 
-    let messages = ["starting message"];
-    this.state = {
-      inputValue: "",
-      messages: messages
-    };
+    var messages = [
+      {
+        text: "How many plays is Shakespeare generally considered to have written?",
+        source: "received"
+      }
+    ];
+    this.state = { messages: messages };
 
     this.enterKeyHandler = this.enterKeyHandler.bind(this);
   }
@@ -25,23 +27,41 @@ class App extends React.Component {
     if (event.which === 13) {
       event.preventDefault();
 
-      var messages = this.state.messages;
-      var newMessage = event.target.textContent;
+      var newMessage = {
+        text: event.target.textContent,
+        source: "sent"
+      };
 
-      if (newMessage !== "") {
-        messages.push(newMessage);
+      if (newMessage.text !== "") {
+        this.addMessage(newMessage);
+        this.postMessage(newMessage);
       }
-
-      this.setState({ messages: messages, inputValue: "" });
 
       return true;
     }
   }
 
-  renderMessage (message, key) {
-    return (
-      <p key={key}>{message}</p>
-    )
+  addMessage (newMessage) {
+    var messages = this.state.messages;
+    messages.push(newMessage);
+    this.setState({ messages: messages });
+  }
+
+  postMessage (message) {
+    var requestParams = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(message)
+    }
+    var request = new Request("http://localhost:4567/api/messages", requestParams);
+
+    fetch(request)
+      .then(response => response.json())
+      .then(message => this.addMessage(message))
+      .catch(error => console.log(error));
   }
 
   render () {
@@ -53,7 +73,7 @@ class App extends React.Component {
           <h1>{greeting}</h1>
           <p>Ask me stuff.</p>
 
-          {this.state.messages.map((message, index) => <Message message={message} key={index} source="sent" />)}
+          {this.state.messages.map((message, index) => <Message message={message.text} key={index} source={message.source} />)}
         </div>
         <TextInput onKeyPress={this.enterKeyHandler} />
       </div>
