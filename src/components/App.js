@@ -12,13 +12,7 @@ class App extends React.Component {
   constructor (props) {
     super(props);
 
-    var messages = [
-      {
-        text: "How many plays is Shakespeare generally considered to have written?",
-        source: "received"
-      }
-    ];
-    this.state = { messages: messages };
+    this.state = { messages: [], currentContext: {} };
 
     this.enterKeyHandler = this.enterKeyHandler.bind(this);
   }
@@ -41,6 +35,14 @@ class App extends React.Component {
     }
   }
 
+  processResponse ({ text, source, context }) {
+    console.log(text);
+    console.log(source);
+    console.log(context);
+    text.forEach((text) => { this.addMessage({ text: text, source: source }) })
+    this.setState({ currentContext: context });
+  }
+
   addMessage (newMessage) {
     var messages = this.state.messages;
     messages.push(newMessage);
@@ -48,19 +50,22 @@ class App extends React.Component {
   }
 
   postMessage (message) {
+    let body = message;
+    body["context"] = this.state.currentContext;
+
     var requestParams = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      body: JSON.stringify(message)
+      body: JSON.stringify(body)
     }
     var request = new Request("http://localhost:4567/api/messages", requestParams);
 
     fetch(request)
       .then(response => response.json())
-      .then(message => this.addMessage(message))
+      .then(response => this.processResponse(response))
       .catch(error => console.log(error));
   }
 
@@ -70,8 +75,9 @@ class App extends React.Component {
     return (
       <div className="app-container">
         <div className="chat-container">
-          <h1>{greeting}</h1>
-          <p>Ask me stuff.</p>
+          <div className="message-received">
+            <h1 className="message-bubble greeting">{greeting}</h1>
+          </div>
 
           {this.state.messages.map((message, index) => <Message message={message.text} key={index} source={message.source} />)}
         </div>

@@ -7,9 +7,7 @@ class Message extends React.Component {
   render () {
     return (
       <div className={`message message-${this.props.source}`}>
-        <p className="message-bubble">
-          {this.props.message}
-        </p>
+        <p className="message-bubble" dangerouslySetInnerHTML={{ __html: this.props.message }} />
       </div>
     );
   }

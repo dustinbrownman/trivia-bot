@@ -6,3 +6,10 @@ gem 'puma'
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'sinatra-cross_origin'
+gem 'artemis-bot'
+gem 'dotenv'
+gem 'httparty'
+
+group :development, :test do
+  gem 'pry'
+end

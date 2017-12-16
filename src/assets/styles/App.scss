@@ -21,6 +21,14 @@ body {
   }
 }
 
+.greeting {
+  font-family: Helvetica;
+  font-weight: 200;
+  font-size: 225%;
+  max-width: 100%;
+  letter-spacing: normal;
+}
+
 .chat-container {
   color: #3e474f;
   height: calc(100vh - 120px);
@@ -28,9 +36,4 @@ body {
   border-bottom: none;
   overflow: hidden;
   overflow-y: scroll;
-
-  h1 {
-    font-family: Helvetica;
-    font-weight: 200;
-  }
 }
