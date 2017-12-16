@@ -35,11 +35,13 @@ class App extends React.Component {
     }
   }
 
-  processResponse ({ text, source, context }) {
+  processResponse ({ text, source, context, length }) {
     console.log(text);
     console.log(source);
     console.log(context);
-    text.forEach((text) => { this.addMessage({ text: text, source: source }) })
+    text.forEach((text, index) => {
+      this.addMessage({ text: text, source: source, delay: index*1000 })
+    });
     this.setState({ currentContext: context });
   }
 
@@ -79,7 +81,7 @@ class App extends React.Component {
             <h1 className="message-bubble greeting">{greeting}</h1>
           </div>
 
-          {this.state.messages.map((message, index) => <Message message={message.text} key={index} source={message.source} />)}
+          {this.state.messages.map((message, index) => <Message message={message.text} key={index} source={message.source} delay={message.delay} />)}
         </div>
         <TextInput onKeyPress={this.enterKeyHandler} />
       </div>

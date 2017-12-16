@@ -4,9 +4,25 @@ import PropTypes from 'prop-types';
 import '../assets/styles/message.scss';
 
 class Message extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = { hidden: true };
+  }
+
+  componentWillMount () {
+    setTimeout(() => { this.show() }, this.props.delay);
+  }
+
+  show () {
+    this.setState({ hidden: false });
+  }
+
   render () {
+    let hiddenClass = this.state.hidden ? "hidden" : "";
+
     return (
-      <div className={`message message-${this.props.source}`}>
+      <div className={`message message-${this.props.source} ${hiddenClass}`}>
         <p className="message-bubble" dangerouslySetInnerHTML={{ __html: this.props.message }} />
       </div>
     );
