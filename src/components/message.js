@@ -16,13 +16,14 @@ class Message extends React.Component {
 
   show () {
     this.setState({ hidden: false });
+    this.el.scrollIntoView({ behavior: "smooth" });
   }
 
   render () {
     let hiddenClass = this.state.hidden ? "hidden" : "";
 
     return (
-      <div className={`message message-${this.props.source} ${hiddenClass}`}>
+      <div className={`message message-${this.props.source} ${hiddenClass}`} ref={el => this.el = el}>
         <p className="message-bubble" dangerouslySetInnerHTML={{ __html: this.props.message }} />
       </div>
     );
