@@ -11,8 +11,8 @@
 
     .message-bubble {
       color: #fff;
-      background-color: #85b816;
-      border: 2px solid #85b816;
+      background-color: #0063d1;
+      border: 2px solid #0063d1;
       border-radius: 20px 20px 0 20px;
     }
   }
@@ -24,6 +24,22 @@
       background-color: darken(#f7f6f5, 5%);
       border: 2px solid darken(#f7f6f5, 5%);
       border-radius: 20px 20px 20px 0;
+    }
+  }
+
+  &.correct {
+    .message-bubble {
+      color: white;
+      background-color: #84ba00;
+      border-color: #84ba00;
+    }
+  }
+
+  &.missed {
+    .message-bubble {
+      color: white;
+      background-color: #f7b000;
+      border-color: #f7b000;
     }
   }
 

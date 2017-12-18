@@ -12,9 +12,13 @@ class App extends React.Component {
   constructor (props) {
     super(props);
 
-    this.state = { messages: [], currentContext: {} };
+    this.state = { messages: [], currentContext: {}, ready: false };
 
     this.enterKeyHandler = this.enterKeyHandler.bind(this);
+  }
+
+  componentDidMount () {
+    this.postMessage({}).then(() => this.setState({ ready: true }));
   }
 
   enterKeyHandler (event) {
@@ -36,11 +40,12 @@ class App extends React.Component {
   }
 
   processResponse ({ text, source, context, length }) {
-    console.log(text);
-    console.log(source);
-    console.log(context);
     text.forEach((text, index) => {
-      this.addMessage({ text: text, source: source, delay: index*1000 })
+      let messageProps = { text: text, source: source, delay: index*1000 }
+      if (index === 0 && context["answer_status"]) {
+        messageProps["answerStatus"] = context["answer_status"];
+      }
+      this.addMessage(messageProps);
     });
     this.setState({ currentContext: context });
   }
@@ -65,10 +70,17 @@ class App extends React.Component {
     }
     var request = new Request("http://localhost:4567/api/messages", requestParams);
 
-    fetch(request)
-      .then(response => response.json())
-      .then(response => this.processResponse(response))
-      .catch(error => console.log(error));
+    return (
+      fetch(request)
+        .then(response => response.json())
+        .then(response => this.processResponse(response))
+        .catch(error => this.errorMessage())
+    );
+  }
+
+  errorMessage () {
+    errorMessage = "Uh oh. I'm experiencing some sort of malfunction."
+    addMessage({ text: errorMessage, source: "received", delay: 0 })
   }
 
   render () {
@@ -81,9 +93,9 @@ class App extends React.Component {
             <h1 className="message-bubble greeting">{greeting}</h1>
           </div>
 
-          {this.state.messages.map((message, index) => <Message message={message.text} key={index} source={message.source} delay={message.delay} />)}
+          {this.state.messages.map((message, index) => <Message message={message.text} key={index} source={message.source} delay={message.delay} answerStatus={message.answerStatus} />)}
         </div>
-        <TextInput onKeyPress={this.enterKeyHandler} />
+        <TextInput onKeyPress={this.enterKeyHandler} disabled={!this.state.ready} />
       </div>
     );
   }

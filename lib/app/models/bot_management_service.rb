@@ -5,12 +5,10 @@ class BotManagementService
   attr_reader :state
 
   def initialize(state)
-    puts state
     @state = State.new(state)
   end
 
   def process
-    puts state.intents
     if state.context["need_new_question"]
       AskMe.call(state)
     end

@@ -37,7 +37,7 @@ namespace "/api" do
 
     response = conversation.message(workspace_id, {
       text: json["text"],
-      context: json.fetch("context", {})
+      context: json.fetch("context", {}).merge(answer_status: nil)
     })
     response = JSON.parse(response.body)
 

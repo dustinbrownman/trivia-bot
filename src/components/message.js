@@ -23,7 +23,7 @@ class Message extends React.Component {
     let hiddenClass = this.state.hidden ? "hidden" : "";
 
     return (
-      <div className={`message message-${this.props.source} ${hiddenClass}`} ref={el => this.el = el}>
+      <div className={`message message-${this.props.source} ${this.props.answerStatus} ${hiddenClass}`} ref={el => this.el = el}>
         <p className="message-bubble" dangerouslySetInnerHTML={{ __html: this.props.message }} />
       </div>
     );
@@ -32,7 +32,8 @@ class Message extends React.Component {
 
 Message.propTypes = {
   message: PropTypes.string.isRequired,
-  source: PropTypes.oneOf(["sent", "received"]).isRequired
+  source: PropTypes.oneOf(["sent", "received"]).isRequired,
+  answerStatus: PropTypes.oneOf(["correct", "missed"])
 };
 
 export default Message;

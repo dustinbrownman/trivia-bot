@@ -1,7 +1,7 @@
 .text-input {
   width: 100%;
 
-  span[contenteditable="true"] {
+  span[contenteditable] {
     box-sizing: border-box;
     display: inline-block;
     position: relative;
@@ -16,7 +16,7 @@
     transition: border-bottom 0.25s ease;
 
     &:after {
-      content: " ";
+      content: "\200B";
     }
     &:focus {
       outline-width: 0;

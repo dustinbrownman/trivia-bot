@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import '../assets/styles/text-input.scss';
 
 class TextInput extends React.Component {
-  componentDidMount () {
+  componentDidUpdate () {
     this.editableSpan.focus();
   }
 
@@ -15,12 +15,12 @@ class TextInput extends React.Component {
   }
 
   render () {
-    let { value, onKeyPress } = this.props;
+    let { value, disabled, onKeyPress } = this.props;
 
     return (
       <div className="text-input">
         <span ref={span => this.editableSpan = span}
-              contentEditable="true"
+              contentEditable={!disabled}
               onKeyPress={this.clearTextOnEnter.bind(this)} />
       </div>
     );

@@ -6,6 +6,7 @@ class BotManagementService
 
     def initialize(state)
       @state = state
+      puts category_id_map.keys
     end
 
     def self.call(state)
