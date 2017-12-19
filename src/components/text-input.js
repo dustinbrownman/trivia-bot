@@ -19,7 +19,7 @@ class TextInput extends React.Component {
       <div className="text-input">
         <span
           contentEditable={!this.props.disabled}
-          onKeyPress={this.clearTextOnEnter}
+          onKeyPress={this.clearTextOnEnter.bind(this)}
           ref={span => this.editableSpan = span}
         />
       </div>
