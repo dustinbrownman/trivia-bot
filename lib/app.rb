@@ -4,7 +4,6 @@ require 'sinatra/json'
 require 'sinatra/cross_origin'
 require 'json'
 require 'dotenv/load'
-require 'pry'
 
 require_relative "app/models/conversation"
 require_relative "app/models/bot_management_service"
