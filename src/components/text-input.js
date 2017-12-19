@@ -15,19 +15,20 @@ class TextInput extends React.Component {
   }
 
   render () {
-    let { value, disabled, onKeyPress } = this.props;
-
     return (
       <div className="text-input">
-        <span ref={span => this.editableSpan = span}
-              contentEditable={!disabled}
-              onKeyPress={this.clearTextOnEnter.bind(this)} />
+        <span
+          contentEditable={!this.props.disabled}
+          onKeyPress={this.clearTextOnEnter}
+          ref={span => this.editableSpan = span}
+        />
       </div>
     );
   }
 }
 
 TextInput.propTypes = {
+  disabled: PropTypes.boolean,
   onKeyPress: PropTypes.func
 };
 

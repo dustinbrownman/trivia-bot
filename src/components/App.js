@@ -6,8 +6,6 @@ import Message from "./message";
 
 import '../assets/styles/app.scss';
 
-const messages = [];
-
 class App extends React.Component {
   constructor (props) {
     super(props);
@@ -41,7 +39,7 @@ class App extends React.Component {
 
   processResponse ({ text, source, context, length }) {
     text.forEach((text, index) => {
-      let messageProps = { text: text, source: source, delay: index*1000 }
+      let messageProps = { text: text, source: source, delay: index*1000 };
       if (index === 0 && context["answer_status"]) {
         messageProps["answerStatus"] = context["answer_status"];
       }
@@ -67,7 +65,7 @@ class App extends React.Component {
         "Accept": "application/json"
       },
       body: JSON.stringify(body)
-    }
+    };
     var request = new Request("http://localhost:4567/api/messages", requestParams);
 
     return (
@@ -79,8 +77,8 @@ class App extends React.Component {
   }
 
   errorMessage () {
-    errorMessage = "Uh oh. I'm experiencing some sort of malfunction."
-    addMessage({ text: errorMessage, source: "received", delay: 0 })
+    let errorMessage = "Uh oh. I'm experiencing some sort of malfunction.";
+    this.addMessage({ text: errorMessage, source: "received", delay: 0 });
   }
 
   render () {
@@ -93,9 +91,22 @@ class App extends React.Component {
             <h1 className="message-bubble greeting">{greeting}</h1>
           </div>
 
-          {this.state.messages.map((message, index) => <Message message={message.text} key={index} source={message.source} delay={message.delay} answerStatus={message.answerStatus} />)}
+          {this.state.messages.map((message, index) => {
+            return (
+              <Message
+                answerStatus={message.answerStatus}
+                delay={message.delay}
+                key={index}
+                message={message.text}
+                source={message.source}
+              />
+            );
+          })}
         </div>
-        <TextInput onKeyPress={this.enterKeyHandler} disabled={!this.state.ready} />
+        <TextInput
+          disabled={!this.state.ready}
+          onKeyPress={this.enterKeyHandler}
+        />
       </div>
     );
   }

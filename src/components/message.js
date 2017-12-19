@@ -5,13 +5,13 @@ import '../assets/styles/message.scss';
 
 class Message extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
 
     this.state = { hidden: true };
   }
 
   componentWillMount () {
-    setTimeout(() => { this.show() }, this.props.delay);
+    setTimeout(() => { this.show(); }, this.props.delay);
   }
 
   show () {
@@ -23,17 +23,24 @@ class Message extends React.Component {
     let hiddenClass = this.state.hidden ? "hidden" : "";
 
     return (
-      <div className={`message message-${this.props.source} ${this.props.answerStatus} ${hiddenClass}`} ref={el => this.el = el}>
-        <p className="message-bubble" dangerouslySetInnerHTML={{ __html: this.props.message }} />
+      <div
+        className={`message message-${this.props.source} ${this.props.answerStatus} ${hiddenClass}`}
+        ref={el => this.el = el}
+      >
+        <p
+          className="message-bubble"
+          dangerouslySetInnerHTML={{ __html: this.props.message }}
+        />
       </div>
     );
   }
 }
 
 Message.propTypes = {
+  answerStatus: PropTypes.oneOf(["correct", "missed"]),
+  delay: PropTypes.number,
   message: PropTypes.string.isRequired,
-  source: PropTypes.oneOf(["sent", "received"]).isRequired,
-  answerStatus: PropTypes.oneOf(["correct", "missed"])
+  source: PropTypes.oneOf(["sent", "received"]).isRequired
 };
 
 export default Message;
