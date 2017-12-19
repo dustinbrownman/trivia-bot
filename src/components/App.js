@@ -66,7 +66,7 @@ class App extends React.Component {
       },
       body: JSON.stringify(body)
     };
-    var request = new Request("http://localhost:4567/api/messages", requestParams);
+    var request = new Request("/api/messages", requestParams);
 
     return (
       fetch(request)
